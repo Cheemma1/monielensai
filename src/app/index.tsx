@@ -1,4 +1,4 @@
-// app/index.tsx — now much simpler
+import "../../global.css";
 import { Redirect } from 'expo-router';
 
 import { View, ActivityIndicator } from 'react-native';
