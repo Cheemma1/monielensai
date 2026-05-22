@@ -13,7 +13,7 @@
 
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
+
 
 export default function TabsLayout() {
   return (
@@ -23,6 +23,7 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarActiveTintColor: '#0052FE',
         tabBarInactiveTintColor: '#46464D',
+
         tabBarStyle: {
           height: 100,
           paddingBottom: 30,
@@ -70,11 +71,11 @@ export default function TabsLayout() {
       />
 
       <Tabs.Screen
-        name="aichat"
+        name="profile"
         options={{
-          title: 'AI Chat',
+          title: 'Profile',
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="chatbubbles-outline" size={size} color={color} />
+            <Ionicons name="person-outline" size={size} color={color} />
           ),
         }}
       />
