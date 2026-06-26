@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Alert, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, ScrollView,  TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuthUser } from '@/features/auth/Authcontext';
 import { useLogOut, useUpdateUserDetails } from '@/features/auth/hooks/useAuth';
 import { currencyOptions } from '@/constants/categories';
+import Text from '@/components/Text';
 
 const Profile = () => {
   const { user, userDetails, refreshUser } = useAuthUser();

@@ -16,6 +16,12 @@ export default function Index() {
     });
   }, []);
 
+  useEffect(() => {
+    if (user && hasOnboarded === false) {
+      AsyncStorage.setItem('hasSeenOnboarding', 'true');
+    }
+  }, [hasOnboarded, user]);
+
   if (isLoading || hasOnboarded === null) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -24,7 +30,7 @@ export default function Index() {
     );
   }
 
+  if (user) return <Redirect href="/(tabs)/home" />;
   if (!hasOnboarded) return <Redirect href="/onboarding" />;
   if (!user) return <Redirect href="/login" />;
-  return <Redirect href="/(tabs)/home" />;
 }

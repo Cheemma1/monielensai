@@ -119,7 +119,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { logIn, logOut, resetPassword, signUp, updateUserDetails } from '../services/auth.service';
+import { logIn, logOut, resetPassword, signUp, updateUserDetails, loginWithGoogle } from '../services/auth.service';
 
 // useSignUp
 export function useSignUp() {
@@ -263,6 +263,36 @@ export function useUpdateUserDetails() {
     isLoading: mutation.isPending,
     error: mutation.error?.message ?? null,
     isSuccess: mutation.isSuccess,
+    isError: mutation.isError,
+    reset: mutation.reset,
+  };
+}
+
+export function useGoogleLogIn() {
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationFn: loginWithGoogle,
+
+    onSuccess: async (result) => {
+      if (!result.success) {
+        throw new Error(result.error);
+      }
+
+      await AsyncStorage.setItem('hasSeenOnboarding', 'true');
+      router.replace('/(tabs)/home');
+    },
+
+    onError: (err: Error) => {
+      console.error('Google login failed:', err.message);
+    },
+  });
+
+  return {
+    logInWithGoogle: mutation.mutate,
+    logInWithGoogleAsync: mutation.mutateAsync,
+    isLoading: mutation.isPending,
+    error: mutation.error?.message ?? null,
     isError: mutation.isError,
     reset: mutation.reset,
   };

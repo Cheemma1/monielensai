@@ -3,9 +3,10 @@ import { useTransactions } from '@/features/transactions/hooks/useTransaction';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCurrency } from '@/features/auth/Authcontext';
+import Text from '@/components/Text';
 
 const getLast7Days = () => {
   const list = [];
@@ -90,11 +91,13 @@ const Home = () => {
       <View className="flex-1">
         <NavBar />
 
-        <ScrollView contentContainerClassName="gap-4 px-4 pb-28 pt-4" showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerClassName="gap-4 px-4 pb-28 pt-4"
+          showsVerticalScrollIndicator={false}>
           {/* Total Balance Card */}
           <View className="rounded-3xl bg-primary p-5">
             <Text className="text-white/80">Total balance</Text>
-            <Text className="mt-2 text-white font-bold" style={{ fontSize: 36, lineHeight: 40 }}>
+            <Text className="mt-2 font-bold text-white" style={{ fontSize: 36, lineHeight: 40 }}>
               {formatAmount(totalBalance)}
             </Text>
             <Text className="mt-2 text-white/80">Dynamic cash flow balance</Text>
@@ -107,7 +110,9 @@ const Home = () => {
                 <Ionicons name="arrow-down" size={16} color="#16A34A" className="mb-1" />
                 <Text className="text-slate-500">Monthly income</Text>
               </View>
-              <Text className="mt-2 text-emerald-600 font-bold" style={{ fontSize: 22, lineHeight: 28 }}>
+              <Text
+                className="mt-2 font-bold text-emerald-600"
+                style={{ fontSize: 22, lineHeight: 28 }}>
                 {formatAmount(monthlyIncome)}
               </Text>
             </View>
@@ -117,7 +122,9 @@ const Home = () => {
                 <Ionicons name="arrow-up" size={16} color="#DC2626" className="mb-1" />
                 <Text className="text-slate-500">Monthly expenses</Text>
               </View>
-              <Text className="mt-2 text-rose-600 font-bold" style={{ fontSize: 22, lineHeight: 28 }}>
+              <Text
+                className="mt-2 font-bold text-rose-600"
+                style={{ fontSize: 22, lineHeight: 28 }}>
                 {formatAmount(monthlyExpenses)}
               </Text>
             </View>
@@ -128,13 +135,13 @@ const Home = () => {
             <View className="rounded-2xl border border-blue-200 bg-blue-50 p-4">
               <View className="mb-2 flex-row items-center gap-2">
                 <Ionicons name="sparkles" size={18} color="#2563EB" />
-                <Text className="text-blue-800 font-bold" style={{ fontSize: 16 }}>
+                <Text className="font-bold text-blue-800" style={{ fontSize: 16 }}>
                   AI Insight
                 </Text>
               </View>
               <Text className="text-blue-900">
                 {monthlyExpenses > monthlyIncome && monthlyIncome > 0
-                  ? "Alert: Your monthly expenses currently exceed your income. Consider scaling back non-essential purchases."
+                  ? 'Alert: Your monthly expenses currently exceed your income. Consider scaling back non-essential purchases.'
                   : `You have spent ${formatAmount(monthlyExpenses)} this month. Keep tracking to optimize your savings rate!`}
               </Text>
             </View>
@@ -153,10 +160,12 @@ const Home = () => {
                 const height = maxExpense > 0 ? (d.amount / maxExpense) * 68 + 12 : 12;
 
                 return (
-                  <View key={`${d.date}-${index}`} className="items-center gap-1 flex-1">
-                    <Text className="text-[9px] text-slate-400 font-semibold">{formatAmount(d.amount, { showDecimal: false })}</Text>
+                  <View key={`${d.date}-${index}`} className="flex-1 items-center gap-1">
+                    <Text className="text-[9px] font-semibold text-slate-400">
+                      {formatAmount(d.amount, { showDecimal: false })}
+                    </Text>
                     <View className="w-6 rounded-md bg-primary/80" style={{ height }} />
-                    <Text className="text-[10px] text-slate-500 font-bold mt-1">{d.label}</Text>
+                    <Text className="mt-1 text-[10px] font-bold text-slate-500">{d.label}</Text>
                   </View>
                 );
               })}
@@ -169,27 +178,35 @@ const Home = () => {
               <Text className="text-lg font-bold">Recent transactions</Text>
               {transactions.length > 5 && (
                 <Pressable onPress={() => setShowAll(!showAll)}>
-                  <Text className="text-primary font-semibold">{showAll ? 'Show less' : 'See all'}</Text>
+                  <Text className="font-semibold text-primary">
+                    {showAll ? 'Show less' : 'See all'}
+                  </Text>
                 </Pressable>
               )}
             </View>
 
-            {isLoading && <Text className="text-slate-500 py-4">Loading transactions...</Text>}
+            {isLoading && <Text className="py-4 text-slate-500">Loading transactions...</Text>}
 
             {isError && (
               <View className="py-4">
-                <Text className="text-rose-600 mb-2">{error?.message ?? 'Failed to load transactions.'}</Text>
-                <Pressable onPress={() => refetch()} className="rounded-xl bg-rose-50 border border-rose-200 py-2">
-                  <Text className="text-rose-700 text-center font-semibold">Retry</Text>
+                <Text className="mb-2 text-rose-600">
+                  {error?.message ?? 'Failed to load transactions.'}
+                </Text>
+                <Pressable
+                  onPress={() => refetch()}
+                  className="rounded-xl border border-rose-200 bg-rose-50 py-2">
+                  <Text className="text-center font-semibold text-rose-700">Retry</Text>
                 </Pressable>
               </View>
             )}
 
             {!isLoading && !isError && transactions.length === 0 && (
-              <View className="rounded-xl border border-dashed border-slate-200 p-6 items-center">
+              <View className="items-center rounded-xl border border-dashed border-slate-200 p-6">
                 <Ionicons name="receipt-outline" size={32} color="#94A3B8" />
-                <Text className="text-slate-500 mt-2 font-medium">No transactions recorded yet</Text>
-                <Text className="text-slate-400 text-xs text-center mt-1">
+                <Text className="mt-2 font-medium text-slate-500">
+                  No transactions recorded yet
+                </Text>
+                <Text className="mt-1 text-center text-xs text-slate-400">
                   Add your first income or expense to see it here!
                 </Text>
               </View>
@@ -216,10 +233,10 @@ const Home = () => {
                       index !== displayedTransactions.length - 1 ? 'border-b border-slate-100' : ''
                     }`}>
                     <View className="flex-1">
-                      <Text className="text-slate-900 font-semibold" style={{ fontSize: 15 }}>
+                      <Text className="font-semibold text-slate-900" style={{ fontSize: 15 }}>
                         {transaction.merchant}
                       </Text>
-                      <Text className="text-slate-500 text-xs mt-0.5">
+                      <Text className="mt-0.5 text-xs text-slate-500">
                         {transaction.category} • {transaction.date}
                       </Text>
                     </View>
@@ -239,7 +256,7 @@ const Home = () => {
           className="absolute bottom-6 right-6 flex-row items-center gap-2 rounded-full bg-primary px-5 py-4 shadow-lg"
           onPress={() => router.push('/add-transaction')}>
           <Ionicons name="add" size={20} color="#FFFFFF" />
-          <Text className="text-white font-semibold">Add Transaction</Text>
+          <Text className="font-semibold text-white">Add Transaction</Text>
         </Pressable>
       </View>
     </SafeAreaView>
