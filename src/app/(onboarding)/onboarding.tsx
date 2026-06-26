@@ -1,8 +1,9 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, FlatList, Dimensions, TouchableOpacity, Image } from 'react-native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuthUser } from '@/features/auth/Authcontext';
 
 const { width } = Dimensions.get('window');
 
@@ -29,8 +30,23 @@ const slides = [
 ];
 
 export default function OnboardingScreen() {
+  const { user } = useAuthUser();
   const [currentIndex, setCurrentIndex] = useState(0);
   const flatListRef = useRef<FlatList>(null);
+
+  useEffect(() => {
+    if (user) {
+      AsyncStorage.setItem('hasSeenOnboarding', 'true');
+      router.replace('/(tabs)/home');
+      return;
+    }
+
+    AsyncStorage.getItem('hasSeenOnboarding').then((value) => {
+      if (value === 'true') {
+        router.replace('/login');
+      }
+    });
+  }, [user]);
 
   const handleNext = async () => {
     if (currentIndex < slides.length - 1) {

@@ -1,29 +1,17 @@
-// import { Slot } from 'expo-router';
-// import { Image, Text, View } from 'react-native';
-// import { SafeAreaView } from 'react-native-safe-area-context';
-
-// export default function TabsLayout() {
-//   return (
-//     <SafeAreaView className="flex-1 bg-[F8F9FD]">
-
-//       <Slot />
-//     </SafeAreaView>
-//   );
-// }
-
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
-
 export default function TabsLayout() {
   return (
-    // <SafeAreaView className="flex-1 bg-[F8F9FD]">
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: '#0052FE',
         tabBarInactiveTintColor: '#46464D',
-
+        tabBarLabelStyle: {
+          fontFamily: 'Montserrat-Medium',
+          fontSize: 11,
+        },
         tabBarStyle: {
           height: 100,
           paddingBottom: 30,
@@ -80,6 +68,6 @@ export default function TabsLayout() {
         }}
       />
     </Tabs>
-    // </SafeAreaView>
   );
 }
+

@@ -5,9 +5,10 @@ import { Budget } from '@/features/budget/types';
 import { useTransactions } from '@/features/transactions/hooks/useTransaction';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { Pressable, ScrollView, Text, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCurrency } from '@/features/auth/Authcontext';
+import Text from '@/components/Text';
 
 const getUsageColors = (percentage: number) => {
   if (percentage <= 30) {
