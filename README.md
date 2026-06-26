@@ -2,10 +2,7 @@
 
 MonielensAI is a personal finance app that helps users understand and manage their money. It lets users track income and expenses, create budgets, view spending insights, and scan receipts so transaction details can be extracted automatically with AI.
 
-![MonielensAI screen 1](assets/screen1.jpeg)
-![](<assets/Screenshot_20260626_132719_Expo Go.jpg>)
-![](<assets/Screenshot_20260626_132726_Expo Go.jpg>)
-![](<assets/Screenshot_20260626_134857_Expo Go.jpg>)
+![MonielensAI screen 1](assets/screen1.jpeg) ![](<assets/Screenshot_20260626_132719_Expo Go.jpg>) ![](<assets/Screenshot_20260626_132726_Expo Go.jpg>) ![](<assets/Screenshot_20260626_134857_Expo Go.jpg>)
 
 ## What The App Does
 
